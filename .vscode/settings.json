@@ -1,0 +1,6 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "dart.flutterSdkPath": "${env:HOME}/fvm/versions/3.13.0"
+}
