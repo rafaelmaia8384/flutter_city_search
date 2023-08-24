@@ -67,6 +67,15 @@ class CitySearch extends SearchDelegate<CitySearchResult?> {
   Widget Function(
           BuildContext context, CitySearchResult result, Function onConfirm)
       resultWidgetBuilder = (context, result, onConfirm) {
+    final List<String> info = [];
+    String infoLabel = '';
+    if (result.displayName != null) info.add(result.displayName!);
+    if (result.className != null) info.add(result.className!);
+    if (result.address?.state != null) info.add(result.address!.state!);
+    if (result.address?.suburb != null) info.add(result.address!.suburb!);
+    if (info.isNotEmpty) {
+      infoLabel = info.join(', ');
+    }
     return Padding(
       padding: const EdgeInsets.only(
         top: 12,
@@ -91,44 +100,30 @@ class CitySearch extends SearchDelegate<CitySearchResult?> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('${result.name}'),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      '${result.address?.state != null ? '${result.address?.state}, ' : ''}${result.address?.country}',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('${result.name}'),
+                      const SizedBox(
+                        height: 6,
                       ),
-                    ),
-                  ],
+                      Text(
+                        infoLabel,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
-        // child: ListTile(
-        // leading: Icon(
-        //   Icons.arrow_back_ios,
-        //   size: 22,
-        //   color: Theme.of(context).colorScheme.primary,
-        // ),
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(10),
-        //   ),
-        //   title: Text('${result.name}'),
-        //   subtitle:
-        //       Text('${result.address?.state}, ${result.address?.country}'),
-        //   onTap: () {
-        //     onConfirm();
-        //   },
-        // ),
       ),
     );
   };
