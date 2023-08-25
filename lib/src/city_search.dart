@@ -76,6 +76,7 @@ class CitySearch extends SearchDelegate<CitySearchResult?> {
     if (info.isNotEmpty) {
       infoLabel = info.join(', ');
     }
+    infoLabel = infoLabel.trim();
     return Padding(
       padding: const EdgeInsets.only(
         top: 12,
